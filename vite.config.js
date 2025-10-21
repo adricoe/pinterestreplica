@@ -1,4 +1,4 @@
-//to be able to deploy we nedd to create this file
+//this is for deploying
 
 import { defineConfig } from 'vite';
 

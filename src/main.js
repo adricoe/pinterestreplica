@@ -1,85 +1,104 @@
-// ------------------ API UNPLASH ----------------------------------------------------------------------------------------------------------------
-const API_KEY = 'B_Ukv4lFJW218-YHsgvKrzroupvOIs_MxZZwoqYG_pg'; 
+import './style.css'; 
+
+// Components
+import { createHeader } from './components/Header/header.js'; 
+import { createMainGridContainer, renderImages } from './components/MainGrid/MainGrid.js';
+import { createFooter } from './components/Footer/footer.js'; 
+import { createLoadingSpinner, removeLoadingSpinner } from './components/LoadingSpinner/LoadingSpinner.js';
+
+//API Configuration
+const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY; 
 const API_URL = 'https://api.unsplash.com/search/photos';
+const DEFAULT_QUERY = 'nature';
+
+//Global DOM 
+let imageGridContainer;
 
 
+// Execution request to unsplash API, render imges or error message
+async function fetchImages(query = DEFAULT_QUERY) {
+    if (!imageGridContainer) {
+        console.error("Image grid container is not mounted yet.");
+        return;
+    }
 
+    const searchTerm = query.trim() || DEFAULT_QUERY;
 
+    //Clear previous content and show loading spinner
+    imageGridContainer.innerHTML = ''; 
+    const loadingSpinner = createLoadingSpinner();
+    imageGridContainer.appendChild(loadingSpinner);
 
+    //API key validation
+    if (!API_KEY) {
+        console.error("Error: API Key is missing. Check your .env file.");
+        removeLoadingSpinner();
+        
+        const errorMessage = document.createElement('p');
+        errorMessage.className = 'no-results';
+        errorMessage.textContent = 'ERROR: API Key is missing. Check your .env file.';
+        imageGridContainer.appendChild(errorMessage);
+        return;
+    }
 
-
-import { createSearchBar } from './components/searchBar.js';
-
-import { createImageGrid, renderImages } from './components/imageGrid.js';
-
-
-
-
-
-
-// ------------------ DOM ---------------------------------------------------------------------------------------------------------------
-const searchContainer = document.getElementById('search-container');
-const imagesGrid = document.getElementById('images-grid');
-const logo = document.getElementById('logo');
-
-
-
-
-//========================= MAIN DATA FUNCTIONS ===========================================================================================================
-//1st request to API unplash and then it renders imgs
-async function fetchImages(query = 'nature') {
     try {
-        const search = query ? query.trim() : 'nature'; 
-
-        //Show loading:
-        imagesGrid.innerHTML = '<div class="loading">Cargando imágenes...</div>'; 
-
-        //API request:
-        const response = await fetch(`${API_URL}?query=${search}&client_id=${API_KEY}&per_page=20`);
+        const response = await fetch(`${API_URL}?query=${searchTerm}&client_id=${API_KEY}&per_page=30`);
         
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`); //gives back an error like 404
+            // Unsplash returns 401 for bad keys or 403 for rate limits
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
         
         const data = await response.json();
 
-        renderImages(data.results, imagesGrid);
+        //remove spinner n render images
+        removeLoadingSpinner();
+        renderImages(imageGridContainer, data.results);
+
     } catch (error) {
-        console.error('Error fetching images:', error);
-        // error msg :
-        imagesGrid.innerHTML = `<div class="loading" style="color: #e60023;">Error: No se pudieron cargar las imágenes. Por favor, revisa tu clave API y conexión.</div>`;
+        console.error("Failed to load images from Unsplash:", error);
+        removeLoadingSpinner();
+
+        const errorMessage = document.createElement('p');
+        errorMessage.className = 'no-results';
+        // Generic msg afte API failure
+        errorMessage.textContent = `Error: Failed to load images. Please check your API key and network connection.`;
+        imageGridContainer.appendChild(errorMessage);
     }
 }
 
 
+//--- Init and DOM---
+ 
+function initApp() {
+    const appRoot = document.getElementById('app-root');
+    if (!appRoot) {
+        console.error("Could not find the application root element (#app-root).");
+        return;
+    }
 
+    // # HEADER
+    // Pass functions for Home button (reset) and search submission
+    const headerComponent = createHeader(
+        () => fetchImages(DEFAULT_QUERY), 
+        fetchImages
+    );
+    appRoot.appendChild(headerComponent);
 
-//==================  INITIAL EVENTS ===========================================================================================================
+    // # GRID CONTAINER
+    const mainContainer = createMainGridContainer(); 
+    appRoot.appendChild(mainContainer);
 
-if (logo) {
-    logo.addEventListener('click', () => {
-        // Nature by default
-        fetchImages('nature');
-    });
+    // # Set the global reference after mounting
+    imageGridContainer = mainContainer.querySelector('#images-grid');
+
+    // # FOOTER
+    const footerComponent = createFooter();
+    appRoot.appendChild(footerComponent);
+
+    // # Initial content
+    fetchImages(DEFAULT_QUERY);
 }
 
-
-
-
-
-
-// ------------------ INIT -----------------------------------------------------------------------------------------------------------------------
-
-// For searchbar
-if (searchContainer) {
-    createSearchBar(searchContainer, fetchImages);
-}
-
-
-// grid for img
-if (imagesGrid) {
-    createImageGrid(imagesGrid);
-}
-
-// initial default
-fetchImages('nature');
+// Start the application#
+initApp();
