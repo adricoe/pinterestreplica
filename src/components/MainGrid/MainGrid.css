@@ -1,12 +1,12 @@
-/*MAIN CONTENT*/
+/* MAIN CONTENT */
 main {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 20px 16px;
+    padding: 100px 16px 20px 16px; 
 }
 
-/*GRID CONTAINER*/
+/* GRID CONTAINER */
 #images-grid {
     column-count: 6; 
     column-gap: 12px;
@@ -14,18 +14,23 @@ main {
     max-width: 1800px;
 }
 
-/*No results msg*/
+/* No results msg */
 .no-results {
-    width: 100%;
+    column-span: all; 
+    margin: 0 auto;
+    padding: 40px 16px; 
+    
     text-align: center;
-    padding: 40px 0;
+    
     font-size: 1.2rem;
     color: var(--color-text-secondary);
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
 }
 
-/*RESPONSIVE*/
+ /* ------------------------ RESPONSIVE -----------------------.- */
 
-/*Laptops and pcs*/
+/* Laptops and pcs */
 @media (max-width: 1400px) {
     #images-grid {
         column-count: 4;
@@ -45,14 +50,25 @@ main {
         column-count: 2;
     }
     main {
-        padding: 15px 10px;
+        padding: 100px 10px 15px 10px;
+    }
+    .no-results {
+        max-width: 90%; 
     }
 }
 
-/*Small phones singles column*/
+/*Small phones <= 480px*/
 @media (max-width: 480px) {
-    #images-grid {
-        column-count: 1;
-        column-gap: 0;
+     #images-grid {
+        column-count: 2; 
+        column-gap: 8px;
+    }
+}
+
+/* Very Small Phones 320px*/
+@media (max-width: 320px) {
+     #images-grid {
+        column-count: 2; 
+        column-gap: 6px;
     }
 }

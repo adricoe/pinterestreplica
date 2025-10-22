@@ -124,8 +124,23 @@
 }
 
 
-/*Responsive Styles (Mobile: < 768px)*/
-@media (max-width: 768px) {
+/*---------------------Responsive--------------------*/
+
+@media (max-width: 600px) {
+    .header-nav-buttons { 
+        display: none; 
+    }
+    
+    .header-mobile-menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        padding: 5px;
+        flex-shrink: 0;
+        order: 3;
+    }
     
     .header-container {
         justify-content: space-between;
@@ -133,14 +148,18 @@
         gap: 8px; 
     }
 
-    .header-nav-buttons { 
-        display: none; 
+    .header-logo-button {
+        font-size: 1.1rem;
+        padding: 6px 10px;
+        margin-right: 4px;
+        order: 1;
     }
 
     .header-search-form {
         flex-grow: 1; 
-        margin-right: 0;
-        max-width: 350px; 
+        margin-right: 8px;
+        max-width: none;
+        order: 2;
     }
     
     .search-input {
@@ -151,33 +170,26 @@
     .user-icon-messages {
         display: none;
     }
- 
+    
     .header-user-icons {
         margin-left: 8px; 
         flex-shrink: 0;
+        order: 4; 
     }
 
-    .header-mobile-menu-toggle {
-        display: block;
-        background: none;
-        border: none;
-        font-size: 2rem;
-        cursor: pointer;
-        padding: 5px;
-        flex-shrink: 0;
-    }
 
+    /*Styles for open menu*/
     .header-nav-buttons.is-open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: var(--header-height);
-        left: 0;
-        width: 100%;
-        background-color: white;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 10px 0;
-        z-index: 999;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    z-index: 999;
     }
 
     .header-nav-buttons.is-open .nav-button {
@@ -185,5 +197,34 @@
         text-align: left;
         padding: 15px 20px;
         width: 100%;
+    }
+}
+
+/* Mobile iicon fix */
+@media (max-width: 480px) {
+    .user-icon {
+        width: 40px; 
+        height: 40px;
+    }
+    .header-user-icons {
+        gap: 4px; 
+    }
+}
+
+/* Ultra-Mobile Icon Fix */
+@media (max-width: 400px) {
+    .user-icon-notifications {
+        display: none;
+    }
+}
+
+
+/* Large Screen Menu Toggle Hide */
+@media (min-width: 601px) {
+    .header-mobile-menu-toggle {
+        display: none !important;
+    }
+    .header-nav-buttons {
+        display: flex !important;
     }
 }

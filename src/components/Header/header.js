@@ -4,10 +4,10 @@ export function createHeader(resetCallback, searchCallback) {
     const headerContainer = document.createElement('header');
     headerContainer.className = 'header-container';
 
-    /*Logo Button*/
+    /*Logo Bttn*/
     const logoButton = document.createElement('button');
     logoButton.className = 'header-logo-button';
-    logoButton.innerHTML = 'Pinterest Réplica'; 
+    logoButton.innerHTML = 'Pinterest Replica'; 
     logoButton.addEventListener('click', resetCallback);
     headerContainer.appendChild(logoButton);
 
@@ -17,7 +17,7 @@ export function createHeader(resetCallback, searchCallback) {
     menuToggle.innerHTML = '☰'; 
     headerContainer.appendChild(menuToggle);
 
-    /*Navigation Buttons (Home, Explore, Create)*/
+    /*Navigation Buttons (home, explore, create)*/
     const navButtons = document.createElement('nav');
     navButtons.className = 'header-nav-buttons';
     
