@@ -1,9 +1,9 @@
 import './MainGrid.css';
 import { createImageCard } from '../ImageCard/ImageCard.js';
 
-/* Creates and returns the main grid container element.*/
+/* Creates and returns the main grid container elemnt.*/
 export function createMainGridContainer() {
-    const main = document.createElement('main');
+    const main  = document.createElement('main');
 
     /*Inner container for img cards*/
     const grid = document.createElement('div');
@@ -24,14 +24,14 @@ export function renderImages(container, images) {
     
     if (images && images.length > 0) {
         images.forEach(image => {
-            const card = createImageCard(image);
+            const card = createImageCard(image) ;
             container.appendChild(card);
         });
     } else {
         // no found msg
         const message = document.createElement('p');
-        message.className = 'no-results';
-        message.textContent = 'No results found. Try a different search term.';
+        message.className =   'no-results';
+        message.textContent =   'No results found. Try a different search term.';
         container.appendChild(message);
     }
 }

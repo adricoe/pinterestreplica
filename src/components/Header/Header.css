@@ -6,8 +6,7 @@
     --color-text-dark: #111;
 }
 
-/*desktop & Base Styles*/
-
+/* Base Styles*/
 .header-container {
     display: flex;
     align-items: center;
@@ -15,7 +14,7 @@
     height: var(--header-height);
     background-color: white;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
+    position: fixed ;
     top: 0;
     left: 0;
     width: 100%;
@@ -30,10 +29,11 @@
     color: var(--pinterest-red);
     cursor: pointer;
     padding: 8px 16px;
-    margin-right: 8px;
+    margin-right: 8px ;
     white-space: nowrap; 
 }
 
+/*Desktop Navigation Buttons */
 .header-nav-buttons {
     display: flex;
     gap: 4px;
@@ -42,8 +42,8 @@
 }
 
 .nav-button {
-    padding: 10px 16px;
-    border-radius: 24px;
+    padding: 10px  16px;
+    border-radius:  24px;
     font-weight: 600;
     cursor: pointer;
     border: none;
@@ -66,8 +66,8 @@
     background-color: var(--nav-button-bg);
 }
 
-/*search bar cont*/
-.header-search-form {
+/*search Bar Container */
+.header-search-form  {
     flex-grow: 1; 
     max-width: 650px; 
     margin-right: 16px;
@@ -92,16 +92,16 @@
     box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.3);
 }
 
-/* user Icons*/
+/*user Icons*/
 .header-user-icons {
     margin-left: auto; 
-    
+
     display: flex;
     gap: 8px;
     flex-shrink: 0;
 }
-
-.user-icon {
+ 
+.user-icon  {
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -113,24 +113,26 @@
     font-size: 1.2rem;
     cursor: pointer;
     transition: background-color 0.15s;
-}
+ }
 
 .user-icon:hover {
     background-color: var(--nav-button-bg);
 }
 
+/*mobile menu toggle*/
 .header-mobile-menu-toggle {
     display: none;
 }
 
 
-/*---------------------Responsive--------------------*/
-
+/* ---------------------RESPONSIVE----------------------- */
 @media (max-width: 600px) {
+    /* Hide desktop n nav butns */
     .header-nav-buttons { 
         display: none; 
-    }
+     }
     
+    /* show mobile hamburger menu*/
     .header-mobile-menu-toggle {
         display: block;
         background: none;
@@ -139,26 +141,21 @@
         cursor: pointer;
         padding: 5px;
         flex-shrink: 0;
-        order: 3;
-    }
+                order: 3;
+            }
     
+    /*container reorganization */
     .header-container {
         justify-content: space-between;
         padding: 0 10px;
         gap: 8px; 
     }
 
-    .header-logo-button {
-        font-size: 1.1rem;
-        padding: 6px 10px;
-        margin-right: 4px;
-        order: 1;
-    }
-
+    /*search bar adjustment */
     .header-search-form {
         flex-grow: 1; 
-        margin-right: 8px;
-        max-width: none;
+        margin-right: 8px; 
+        max-width: none; 
         order: 2;
     }
     
@@ -167,6 +164,7 @@
         font-size: 0.9rem;
     }
 
+    /*hide secondary icons*/
     .user-icon-messages {
         display: none;
     }
@@ -174,23 +172,35 @@
     .header-user-icons {
         margin-left: 8px; 
         flex-shrink: 0;
-        order: 4; 
-    }
+        order: 4;
+}
 
 
-    /*Styles for open menu*/
+
+    /* LOGO ADJUSTMENT */
+    .header-logo-button {
+        font-size: 1.1rem; 
+        order: 1;
+        padding: 8px 12px;
+        margin-right: 4px;
+}
+
+
+
+
+    /* STYLES HAMBURGER MENU V2*/
     .header-nav-buttons.is-open {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: var(--header-height);
-    left: 0;
-    width: 100%;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px 0;
-    z-index: 999;
-    }
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+        z-index: 999;
+}
 
     .header-nav-buttons.is-open .nav-button {
         border-radius: 0;
@@ -200,31 +210,62 @@
     }
 }
 
-/* Mobile iicon fix */
+/*MEDIUM SIZED PHONES*/
 @media (max-width: 480px) {
     .user-icon {
         width: 40px; 
         height: 40px;
     }
+
     .header-user-icons {
         gap: 4px; 
     }
+    .header-logo-button {
+        font-size: 1rem; 
+    }
 }
 
-/* Ultra-Mobile Icon Fix */
+/* Hide NotificatioN*/
 @media (max-width: 400px) {
     .user-icon-notifications {
         display: none;
     }
 }
 
-
-/* Large Screen Menu Toggle Hide */
-@media (min-width: 601px) {
-    .header-mobile-menu-toggle {
-        display: none !important;
+/* ---fixing small screens--- */
+@media (max-width: 350px) {
+    .header-container {
+        padding: 0 5px; 
+        gap: 5px; 
     }
-    .header-nav-buttons {
-        display: flex !important;
+
+    .user-icon {
+        width: 32px ; 
+        height: 32px;
+        font-size: 0.9rem;
+     }
+    
+    .header-user-icons  {
+        gap:   2px;
+    }
+    
+    .header-logo-button {
+         padding: 6px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .header-mobile-menu-toggle {
+        font-size: 1.8rem;
     }
 }
+
+@media (min-width: 601px) {
+    .header-mobile-menu-toggle {
+        display: none  !important;
+      }
+    .header-nav-buttons {
+        display: flex !important;
+      }
+} 
+
+

@@ -1,14 +1,14 @@
 import './style.css'; 
 
 // Components
-import { createHeader } from './components/Header/header.js'; 
+import {  createHeader } from './components/Header/header.js'; 
 import { createMainGridContainer, renderImages } from './components/MainGrid/MainGrid.js';
-import { createFooter } from './components/Footer/footer.js'; 
+import {createFooter} from  './components/Footer/Footer.js'; 
 import { createLoadingSpinner, removeLoadingSpinner } from './components/LoadingSpinner/LoadingSpinner.js';
 
 //API Configuration
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY; 
-const API_URL = 'https://api.unsplash.com/search/photos';
+const API_URL =    'https://api.unsplash.com/search/photos'  ;
 const DEFAULT_QUERY = 'nature';
 
 //Global DOM 
@@ -16,6 +16,7 @@ let imageGridContainer;
 
 
 // Execution request to unsplash API, render imges or error message
+
 async function fetchImages(query = DEFAULT_QUERY) {
     if (!imageGridContainer) {
         console.error("Image grid container is not mounted yet.");
@@ -73,8 +74,8 @@ async function fetchImages(query = DEFAULT_QUERY) {
 function initApp() {
     const appRoot = document.getElementById('app-root');
     if (!appRoot) {
-        console.error("Could not find the application root element (#app-root).");
-        return;
+        console.error( "Could not find the application root element (#app-root)."  );
+        return ;
     }
 
     // # HEADER
@@ -83,14 +84,14 @@ function initApp() {
         () => fetchImages(DEFAULT_QUERY), 
         fetchImages
     );
-    appRoot.appendChild(headerComponent);
+    appRoot.appendChild(headerComponent) ;
 
     // # GRID CONTAINER
     const mainContainer = createMainGridContainer(); 
     appRoot.appendChild(mainContainer);
 
     // # Set the global reference after mounting
-    imageGridContainer = mainContainer.querySelector('#images-grid');
+    imageGridContainer = mainContainer.querySelector('#images-grid' );
 
     // # FOOTER
     const footerComponent = createFooter();
