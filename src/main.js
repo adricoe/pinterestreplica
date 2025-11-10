@@ -1,4 +1,4 @@
-import './style.css'; 
+import './src/style.css' ;
 
 // Components
 import {  createHeader } from './components/Header/header.js'; 

@@ -260,11 +260,16 @@
 }
 
 @media (min-width: 601px) {
+
+
     .header-mobile-menu-toggle {
         display: none  !important;
       }
-    .header-nav-buttons {
+    .header-nav-buttons.is-open {
         display: flex !important;
+        position: static !important;
+        width: auto !important;
+        box-shadow: none !important;
       }
 } 
 
